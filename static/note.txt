@@ -1,0 +1,2 @@
+this is for all files that is seen by the user
+eg  images
