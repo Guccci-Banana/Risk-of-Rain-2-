@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 this is for all files that is seen by the user
+=======
+this is for all files that is seen by the user
+>>>>>>> 3e3a985 (test)
 eg  images
