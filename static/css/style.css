@@ -1,3 +1,93 @@
-* {
-    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #101010;
+    color: #eee;
+}
+
+header {
+    background-color: #121b22;
+    padding: 10px;
+    text-align: center;
+}
+
+.logo {
+  height: 80px; /* adjust height */
+  width: auto;  /* keeps aspect ratio */
+  display: block;
+  margin: 0 auto; /* centers horizontally */
+  padding: 10px 0;
+}
+
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+footer {
+    text-align: center;
+}
+
+h2 {
+    color: #00c3ff;
+}
+
+.card {
+    background-color: #1c1c1c;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #00c3ff;
+    border-radius: 8px;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;       /* Use text color from card */
+    display: block;       /* Make entire card clickable */
+    margin-bottom: 15px;  /* Spacing between cards */
+    border-radius: 8px;   /* Rounded corners */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.card-link:hover,
+.card-link:focus {
+    background-color: #1e2a38;  /* Slightly lighter bg on hover */
+    box-shadow: 0 0 10px #40c4ffaa; /* Soft blue glow */
+    outline: none;
+}
+
+.card {
+    padding: 15px;
+    border-left: 5px solid #00c3ff;
+    background-color: #1c1c1c;
+}
+
+.navbar {
+  background-color: #1e1b2e;
+  padding: 10px;
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+  background-color: #5ea4ff;
+  color: #0f0f0f;
 }

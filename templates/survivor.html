@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <nav class="navbar">
+    <a href="home">Home</a>
+    </nav>
+    <h1>Survivor List</h1>
+    {% for survivor in survivors %}
+        <a href="{{ url_for('survivor_info', name=survivor['name'].lower()) }}" class="card-link">
+        <div class="card">
+            <h3>{{ survivor['name'] }}</h3>
+            <p>{{ survivor['description'] }}</p>
+        </div>
+        </a>
+    {% endfor %}
+{% endblock %}
