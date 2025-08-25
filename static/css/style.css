@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
     margin: 0;
     background-color: #101010;
     color: #eee;
@@ -12,11 +12,11 @@ header {
 }
 
 .logo {
-  height: 80px; /* adjust height */
-  width: auto;  /* keeps aspect ratio */
-  display: block;
-  margin: 0 auto; /* centers horizontally */
-  padding: 10px 0;
+    height: 80px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 0;
 }
 
 
@@ -37,6 +37,18 @@ h2 {
     color: #00c3ff;
 }
 
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card-link {
+    margin-bottom: 0;
+}
+
+
 .card {
     background-color: #1c1c1c;
     padding: 15px;
@@ -47,18 +59,18 @@ h2 {
 
 .card-link {
     text-decoration: none;
-    color: inherit;       /* Use text color from card */
-    display: block;       /* Make entire card clickable */
-    margin-bottom: 15px;  /* Spacing between cards */
-    border-radius: 8px;   /* Rounded corners */
+    color: inherit;
+    display: block;
+    margin-bottom: 15px;
+    border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
 }
 
 .card-link:hover,
 .card-link:focus {
-    background-color: #1e2a38;  /* Slightly lighter bg on hover */
-    box-shadow: 0 0 10px #40c4ffaa; /* Soft blue glow */
+    background-color: #1e2a38;
+    box-shadow: 0 0 10px #40c4ffaa;
     outline: none;
 }
 
@@ -68,26 +80,44 @@ h2 {
     background-color: #1c1c1c;
 }
 
+.card img {
+    display: block;
+    margin: 12px auto 0 auto;
+    max-width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #222;
+    box-shadow: 0 2px 8px #0004;
+}
+
 .navbar {
-  background-color: #1e1b2e;
-  padding: 10px;
-  display: flex;
-  gap: 25px;
-  justify-content: center;
-  font-family: 'Segoe UI', sans-serif;
+    background-color: #1e1b2e;
+    padding: 10px 0;
+    margin: 0;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    width: 100vw;
+    box-sizing: border-box;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
 }
 
 .navbar a {
-  color: #f0f0f0;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background-color 0.3s, color 0.3s;
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar a:hover,
 .navbar a:focus {
-  background-color: #5ea4ff;
-  color: #0f0f0f;
+    background-color: #5ea4ff;
+    color: #0f0f0f;
 }

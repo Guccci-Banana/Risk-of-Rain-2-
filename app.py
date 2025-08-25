@@ -67,7 +67,7 @@ def items():
 @app.route('/survivor')
 def characters():
     db = get_db()
-    survivor_list = db.execute('SELECT name, stats FROM Survivor').fetchall()
+    survivor_list = db.execute('SELECT name, stats, media FROM Survivor').fetchall()
     return render_template('survivor.html', survivors=survivor_list)
 
 @app.route('/survivor/<name>')

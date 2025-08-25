@@ -2,15 +2,18 @@
 
 {% block content %}
     <nav class="navbar">
-    <a href="home">Home</a>
+        <a href="{{ url_for('home') }}">Home</a>
     </nav>
     <h1>Survivor List</h1>
-    {% for survivor in survivors %}
-        <a href="{{ url_for('survivor_info', name=survivor['name'].lower()) }}" class="card-link">
-        <div class="card">
-            <h3>{{ survivor['name'] }}</h3>
-            <p>{{ survivor['description'] }}</p>
-        </div>
-        </a>
-    {% endfor %}
+    <div class="card-grid">
+        {% for survivor in survivors %}
+            <a href="{{ url_for('survivor_info', name=survivor['name'].lower()) }}" class="card-link">
+                <div class="card">
+                    <h3>{{ survivor['name'] }}</h3>
+                    <p>{{ survivor['description'] }}</p>
+                    <img src="{{ url_for('static', filename=survivor['media']) }}" alt="{{ survivor['name'] }}">
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
