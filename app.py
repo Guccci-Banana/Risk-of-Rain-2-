@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
@@ -79,6 +79,11 @@ def survivor_info(name):
     if survivor is None:
         return "Survivor not found", 404
     return render_template('survivor_info.html', survivor=survivor)
+
+
+@app.route("/")
+def index():
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

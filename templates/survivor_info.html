@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <h2>{{ survivor['name'] }}</h2>
-  <p>{{ survivor['description'] }}</p>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('characters') }}">Survivors</a>
+    </nav>
+    <h1>{{ survivor['name'] }}</h1>
+    <p>{{ survivor['stats'] }}</p>
+    <p>{{ survivor['abilities'] }}</p>
+    <!-- Add more fields if your Survivor table has them -->
 {% endblock %}
