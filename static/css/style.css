@@ -55,13 +55,18 @@ h2 {
     margin-bottom: 15px;
     border-left: 5px solid #00c3ff;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px; 
+    box-sizing: border-box;
 }
 
 .card-link {
     text-decoration: none;
     color: inherit;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 

@@ -2,13 +2,20 @@
 
 {% block content %}
     <nav class="navbar">
-    <a href="home">Home</a>
+        <a href="{{ url_for('home') }}">Home</a>
     </nav>
     <h1>Item List</h1>
-    {% for item in items %}
-        <div class="card">
-        <h2>{{ item['name'] }}</h2>
-        <p>{{ item['description'] }}</p>
-        </div>
-    {% endfor %}
+    <div class="card-grid">
+        {% for item in items %}
+            <a href="{{ url_for('item_info', name=item['name'].lower()) }}" class="card-link">
+                <div class="card">
+                    <h2>{{ item['name'] }}</h2>
+                    <img src="{{ url_for('static', filename=item['media']) }}" alt="{{ item['name'] }}">
+                    <p>{{ item['description'] }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
+
+

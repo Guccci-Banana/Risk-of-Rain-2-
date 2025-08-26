@@ -53,7 +53,7 @@ def pizza_detail(pizza_id):
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(DATABASE)
-        g.db.row_factory = sqlite3.Row  # access columns by name
+        g.db.row_factory = sqlite3.Row 
     return g.db
 
 
@@ -61,7 +61,7 @@ def get_db():
 @app.route('/items')
 def items():
     db = get_db()
-    item_list = db.execute('SELECT name, description FROM Item').fetchall()
+    item_list = db.execute('SELECT name, description, media FROM Item').fetchall()
     return render_template('items.html', items=item_list)
 
 @app.route('/survivor')
@@ -79,6 +79,16 @@ def survivor_info(name):
     if survivor is None:
         return "Survivor not found", 404
     return render_template('survivor_info.html', survivor=survivor)
+
+@app.route('/item/<name>')
+def item_info(name):
+    db = get_db()
+    item = db.execute(
+        'SELECT * FROM item WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
+    if item is None:
+        return "Item not found", 404
+    return render_template('item_info.html', item=item)
 
 
 @app.route("/")
