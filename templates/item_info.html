@@ -1,10 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <nav class="navbar">
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('characters') }}">Survivors</a>
-    </nav>
+
     <h1>{{ item['name'] }}</h1>
     <p>Dlc: {{ item['dlc'] }}</p>
     <p>{{ item['description'] }}</p>
