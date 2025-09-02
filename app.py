@@ -90,6 +90,21 @@ def item_info(name):
         return "Item not found", 404
     return render_template('item_info.html', item=item)
 
+@app.route("/abilities")
+def abilities():
+    db = get_db()
+    ability_list = db.execute('SELECT name, type, cooldown, media, description FROM Abilities').fetchall()
+    return render_template('abilities.html', abilities=ability_list)
+
+@app.route('/abilities/<name>')
+def abilities_info(name):
+    db = get_db()
+    ability = db.execute(
+        'SELECT * FROM abilities WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
+    if ability is None:
+        return "Ability not found", 404
+    return render_template('abilities_info.html', ability=ability)
 
 @app.route("/")
 def index():
@@ -98,4 +113,6 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug = True, port=5000)
+
+
 

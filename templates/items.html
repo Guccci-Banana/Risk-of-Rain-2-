@@ -7,7 +7,7 @@
             <a href="{{ url_for('item_info', name=item['name'].lower()) }}" class="card-link">
                 <div class="card">
                     <h2>{{ item['name'] }}</h2>
-                    <img src="{{ url_for('static', filename=item['media']) }}" alt="{{ item['name'] }}">
+                    <img src="{{ url_for('static', filename='images/items/' ~ item['media']) }}" alt="{{ item['name'] }}">
                 </div>
             </a>
         {% endfor %}

@@ -7,8 +7,8 @@
         {% for survivor in survivors %}
             <a href="{{ url_for('survivor_info', name=survivor['name'].lower()) }}" class="card-link">
                 <div class="card">
-                    <h2>{{ survivor['name'] }}</h3>
-                    <img src="{{ url_for('static', filename=survivor['media']) }}" alt="{{ survivor['name'] }}">
+                    <h2>{{ survivor['name'] }}</h2>
+                    <img src="{{ url_for('static', filename='images/survivors/' ~ survivor['media']) }}" alt="{{ survivor['name'] }}">
                 </div>
             </a>
         {% endfor %}

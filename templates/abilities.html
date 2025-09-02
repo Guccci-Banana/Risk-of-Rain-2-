@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Abilities List</h1>
+    <div class="card-grid">
+        {% for ability in abilities %}
+            <a href="{{ url_for('abilities_info', name=ability['name'].lower()) }}" class="card-link">
+                <div class="card">
+                    <h2>{{ ability['name'] }}</h2>
+                    <img src="{{ url_for('static', filename='images/abilities/' ~ ability['media']) }}" alt="{{ ability['name'] }}">
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
