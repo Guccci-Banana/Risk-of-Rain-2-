@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Maps</h1>
+    <div class="card-grid">
+        {% for map in maps %}
+            <a href="{{ url_for('map_info', name=map['name'].lower()) }}" class="card-link">
+                <div class="card">
+                    <h2>{{ map['name'] }}</h2>
+                    <img src="{{ url_for('static', filename='images/maps/' ~ map['media']) }}" alt="{{ map['name'] }}">
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Bosses</h1>
+    <div class="card-grid">
+        {% for boss in bosses %}
+            <a href="{{ url_for('boss_info', name=boss['name'].lower()) }}" class="card-link">
+                <div class="card">
+                    <h2>{{ boss['name'] }}</h2>
+                    <img src="{{ url_for('static', filename='images/bosses/' ~ boss['media']) }}" alt="{{ boss['name'] }}">
+                    <p>{{ boss['description'] }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

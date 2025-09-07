@@ -106,6 +106,39 @@ def abilities_info(name):
         return "Ability not found", 404
     return render_template('abilities_info.html', ability=ability)
 
+@app.route('/maps')
+def maps():
+    db = get_db()
+    map_list = db.execute('SELECT name, description, media, stage FROM Map').fetchall()
+    return render_template('maps.html', maps=map_list)
+
+@app.route('/map/<name>')
+def map_info(name):
+    db = get_db()
+    map = db.execute(
+        'SELECT * FROM map WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
+    if map is None:
+        return "Map not found", 404
+    return render_template('map_info.html', map=map)
+
+@app.route('/bosses')
+def bosses():
+    db = get_db()
+    boss_list = db.execute('SELECT name, health, media FROM Boss').fetchall()
+    return render_template('bosses.html', bosses=boss_list)
+
+@app.route('/boss/<name>')
+def boss_info(name):
+    db = get_db()
+    boss = db.execute(
+        'SELECT * FROM boss WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
+    if boss is None:
+        return "Boss not found", 404
+    return render_template('boss_info.html', boss=boss)
+
+
 @app.route("/")
 def index():
     return redirect(url_for("home"))
