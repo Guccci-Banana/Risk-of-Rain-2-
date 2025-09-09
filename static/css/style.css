@@ -7,7 +7,7 @@ body {
 
 header {
     background-color: #121b22;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
 }
 
@@ -104,7 +104,7 @@ h2 {
 
 .navbar {
     background-color: #1e1b2e;
-    padding: 10px 0;
+    padding: 5px 0;
     margin: 0;
     display: flex;
     gap: 5px;
@@ -118,17 +118,72 @@ h2 {
     transform: translateX(-50%);
 }
 
+.user-tab {
+    margin-left: auto;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1em;
+}
+
 .navbar a {
     color: #f0f0f0;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 8px 12px; 
     transition: background-color 0.3s, color 0.3s;
+    margin-left: 20px;
+    border-radius: 8px;
 }
 
 .navbar a:hover,
 .navbar a:focus {
     background-color: #5ea4ff;
     color: #0f0f0f;
+    border-radius: 8px;
+}
+
+.container {
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 350px;
+    margin: 0 auto;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #F0F8FF;
+    text-align: center;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+button {
+    width: 95%;
+    padding: 12px;
+    background-color: #236B8E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-style: oblique;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #1E5A7B;
+}
+
+.invalid {
+    color: #ff4444;
+    font-weight: thin;
+    margin-bottom: 10px;
 }

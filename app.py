@@ -1,7 +1,10 @@
-from flask import Flask, render_template, g, redirect, url_for
+from flask import Flask, render_template, g, redirect, url_for, request, session, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
+
 app = Flask(__name__)
+app.secret_key = "ROR2" 
 DATABASE = "data.db"
 
 
@@ -55,8 +58,6 @@ def get_db():
         g.db = sqlite3.connect(DATABASE)
         g.db.row_factory = sqlite3.Row 
     return g.db
-
-
 
 @app.route('/items')
 def items():
@@ -138,6 +139,47 @@ def boss_info(name):
         return "Boss not found", 404
     return render_template('boss_info.html', boss=boss)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    db = get_db()
+    msg = ""
+    if request.method == 'POST':
+        login_value = request.form['username']
+        password = request.form['password']
+        user = db.execute('SELECT * FROM User WHERE username = ? OR email = ?', (login_value, login_value)).fetchone()
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']
+            session['username'] = user['username']
+            msg = "Login successful!"
+            return redirect(url_for('home'))
+        else:
+            msg = "Invalid username or password"
+    return render_template('login.html', msg=msg)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    db = get_db()
+    msg = ""
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form.get('email', '')
+        existing = db.execute('SELECT * FROM User WHERE username = ?', (username,)).fetchone()
+        existing = db.execute('SELECT * FROM User WHERE email = ?', (email,)).fetchone()
+        if existing:
+            msg = "Username/Email already exists."
+        else:
+            hashed = generate_password_hash(password)
+            db.execute('INSERT INTO User (username, email, password) VALUES (?, ?, ?)', (username, email, hashed))
+            db.commit()
+            msg = "Registration successful! Please log in."
+            return redirect(url_for('login'))
+    return render_template('register.html', msg=msg)
 
 @app.route("/")
 def index():

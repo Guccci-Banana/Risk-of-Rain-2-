@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+            <h2 class="word">Register</h2>
+
+            <form action="{{ url_for('register') }}" method="post">
+                <div class = "invalid">{{ msg }}</div>
+
+                <input class="textbox" type="text" name="username" placeholder="Enter Username" required>
+                <input class="textbox" type="password" name="password" placeholder="Enter Password" required>
+                <input class="textbox" type="email" name="email" placeholder="Enter Email (Optional)">
+
+                <button class="btn" type="submit">Register</button>
+            </form>
+
+            <p class="bottom">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        </div>
+{% endblock %}
