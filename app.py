@@ -78,7 +78,7 @@ def survivor_info(name):
         'SELECT * FROM survivor WHERE LOWER(name) = ?', (name,)
     ).fetchone()
     if survivor is None:
-        return "Survivor not found", 404
+        return render_template('survivornotfound.html'), 404
     return render_template('survivor_info.html', survivor=survivor)
 
 @app.route('/item/<name>')
@@ -88,7 +88,7 @@ def item_info(name):
         'SELECT * FROM item WHERE LOWER(name) = ?', (name,)
     ).fetchone()
     if item is None:
-        return "Item not found", 404
+        return render_template('itemnotfound.html'), 404
     return render_template('item_info.html', item=item)
 
 @app.route("/abilities")
@@ -104,7 +104,7 @@ def abilities_info(name):
         'SELECT * FROM abilities WHERE LOWER(name) = ?', (name,)
     ).fetchone()
     if ability is None:
-        return "Ability not found", 404
+        return render_template('abilitiesnotfound.html'), 404
     return render_template('abilities_info.html', ability=ability)
 
 @app.route('/maps')
@@ -120,9 +120,10 @@ def map_info(name):
         'SELECT * FROM map WHERE LOWER(name) = ?', (name,)
     ).fetchone()
     if map is None:
-        return "Map not found", 404
+        return render_template('mapnotfound.html'), 404
     return render_template('map_info.html', map=map)
 
+'''
 @app.route('/bosses')
 def bosses():
     db = get_db()
@@ -138,7 +139,8 @@ def boss_info(name):
     if boss is None:
         return "Boss not found", 404
     return render_template('boss_info.html', boss=boss)
-
+'''
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     db = get_db()

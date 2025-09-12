@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Abilities List</h1>
+    <div class="pageheader">
+        <h1>Abilities List</h1>
+    </div>
     <div class="card-grid">
         {% for ability in abilities %}
             <a href="{{ url_for('abilities_info', name=ability['name'].lower()) }}" class="card-link">

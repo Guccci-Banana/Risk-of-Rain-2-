@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="word">Survivor Not Found</h1>
+        <p class="word">Sorry, the survivor you are looking for does not exist.</p>
+        <a class="btn" href="{{ url_for('survivor') }}">Go to Survivor List</a>
+    </div>  
+{% endblock %}
