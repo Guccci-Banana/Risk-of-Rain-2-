@@ -7,8 +7,8 @@
             <form action="{{ url_for('register') }}" method="post">
                 <div class = "invalid">{{ msg }}</div>
 
-                <input class="textbox" type="text" name="username" placeholder="Enter Username" required>
-                <input class="textbox" type="password" name="password" placeholder="Enter Password" required>
+                <input class="textbox" type="text" name="username" placeholder="Enter Username" required minlength="4" maxlength="20">
+                <input class="textbox" type="password" name="password" placeholder="Enter Password" required minlength="6" maxlength="24">
                 <input class="textbox" type="email" name="email" placeholder="Enter Email (Optional)">
 
                 <button class="btn" type="submit">Register</button>
