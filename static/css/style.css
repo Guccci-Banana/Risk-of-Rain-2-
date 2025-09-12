@@ -187,3 +187,18 @@ button:hover {
     font-weight: thin;
     margin-bottom: 10px;
 }
+
+.btn {
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;                 
+    padding: 10px 20px;
+    background-color: #236B8E;              
+    color: white;                        
+    border-radius: 5px; 
+    font-weight: bold;
+    font-style: oblique;        
+    margin-top: 10px;   
+    border: none;
+    cursor: pointer;
+}
