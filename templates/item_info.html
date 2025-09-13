@@ -1,8 +1,51 @@
 {% extends "layout.html" %}
 
+
 {% block content %}
+<div class="item-info-card draggable">
     <h1>{{ item['name'] }}</h1>
-    <p>Dlc: {{ item['dlc'] }}</p>
+</div>
+
+<div class="item-info-card draggable">
+    <img src="{{ url_for('static', filename='images/items/' + item['media']) }}" alt="{{ item['name'] }}" style="max-width:300px; border-radius:12px; box-shadow:0 2px 12px #0006; margin-top: 20px;">
+</div>
+
+<div class="item-info-card draggable">
+    <p>
+        {% if item['dlc'] != "No" %}
+            This item is from the <b>{{ item['dlc'] }}</b> DLC
+        {% else %}
+            This item is from the base game
+        {% endif %}
+        and stacks in a <b>{{ item['stack_type'] }} way.</b>
+    </p>
+</div>
+
+<div class="item-info-card draggable">
+    <p>
+        Rarity:
+        {% for letter in item['rarity'] %}
+            {% if letter == "W" %}
+                <span style="color: white; font-weight:normal;">White</span>
+            {% elif letter == "G" %}
+                <span style="color: green; font-weight:normal;">Green</span>
+            {% elif letter == "R" %}
+                <span style="color: red; font-weight:normal;">Red</span>
+            {% elif letter == "Y" %}
+                <span style="color: yellow; font-weight:normal;">Yellow</span>
+            {% elif letter == "B" %}
+                <span style="color: blue; font-weight:normal;">Blue</span>
+            {% elif letter == "P" %}
+                <span style="color: purple; font-weight:normal;">Purple</span>
+            {% else %}
+                <span style="color: orange; font-weight:normal;">Error</span>
+            {% endif %}
+        {% endfor %}
+    </p>
+</div>
+
+<div class="item-info-card draggable">
     <p>{{ item['description'] }}</p>
-    <p>Rarity: {{ item['rarity'] }}</p>
+</div>
+
 {% endblock %}

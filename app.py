@@ -62,7 +62,7 @@ def get_db():
 @app.route('/items')
 def items():
     db = get_db()
-    item_list = db.execute('SELECT name, description, media FROM Item').fetchall()
+    item_list = db.execute('SELECT name, description, media, stack_type, dlc, rarity FROM Item').fetchall()
     return render_template('items.html', items=item_list)
 
 @app.route('/survivor')

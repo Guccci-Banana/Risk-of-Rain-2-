@@ -16,6 +16,18 @@
         <a href="{{ url_for('abilities') }}">Abilities</a>
         <a href="{{ url_for('maps') }}">Maps</a>
 
+        <button id="resetBtn" style="background-color: #ff00f0;
+        padding: 10px;
+        margin-left: 730px;
+        margin-top: 0px;
+        display: flex;
+        justify-self: right;
+        font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        width: fit-content;
+        height: fit-content;
+        box-sizing: border-box;">
+            Shuffle Boxes
+        </button>
 
         <div class="user-tab">
             {% if session.get('username') %}
@@ -25,7 +37,8 @@
             {% endif %}
         </div>
     </nav>
-    <main> {% block content %}{% endblock %}</main>
-    <footer> (C)2025 </footer>
+    <main>{% block content %}{% endblock %}</main>
+    <footer></footer>
+    <script src="{{ url_for('static', filename='js/draggable.js') }}"></script>
 </body>
 </html>
