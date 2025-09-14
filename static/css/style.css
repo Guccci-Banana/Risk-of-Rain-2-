@@ -232,3 +232,51 @@ button:hover {
     user-select: none;
 }
 
+a {
+    color: white;       /* unvisited link color */
+    text-decoration: none; /* remove underline */
+}
+
+a:hover,
+a:focus {
+    color: #40c4ff; /* link hover color */
+    text-decoration: underline; /* underline on hover */
+}
+
+.resultslist {
+    display: flex;            /* Use flexbox for easy centering */
+    flex-direction: column;   /* Stack items vertically */
+    align-items: center;      /* Center horizontally */
+    margin-top: 20px;         /* Add some spacing from top */
+}
+
+
+/* Center the headings */
+.resultslist h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Style and center the ul */
+.resultslist ul {
+    list-style-type: none;   /* Remove bullets */
+    padding: 0;
+    text-align: center;       /* Center text inside list items */
+}
+
+/* Optional: style individual li items */
+.resultslist li {
+    margin: 5px 0;
+}
+
+/* Style the links */
+.resultslist a {
+    text-decoration: none;    /* Remove underline */
+    color: #007BFF;           /* Link color */
+    transition: color 0.3s;
+}
+
+.resultslist a:hover {
+    color: #FF4500;           /* Hover color */
+}
+

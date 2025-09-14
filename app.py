@@ -121,6 +121,7 @@ def map_info(name):
     ).fetchone()
     if map is None:
         return render_template('mapnotfound.html'), 404
+    
     return render_template('map_info.html', map=map)
 
 '''
@@ -156,11 +157,13 @@ def login():
             return redirect(url_for('home'))
         else:
             msg = "Invalid username or password"
+
     return render_template('login.html', msg=msg)
 
 @app.route('/logout')
 def logout():
     session.clear()
+
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -181,7 +184,28 @@ def register():
             db.commit()
             msg = "Registration successful! Please log in."
             return redirect(url_for('login'))
+        
     return render_template('register.html', msg=msg)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():  
+    db = get_db()
+    results = []
+    query = ""
+    if request.method == 'POST':
+        query = request.form['query'].lower()
+        item_results = db.execute('SELECT * FROM Item WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
+        survivor_results = db.execute('SELECT * FROM Survivor WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
+        ability_results = db.execute('SELECT * FROM Abilities WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
+        map_results = db.execute('SELECT * FROM Map WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
+        results = {
+            'items': item_results,
+            'survivors': survivor_results,
+            'abilities': ability_results,
+            'maps': map_results
+        }
+    return render_template('search.html', results=results, query=query)
+
 
 @app.errorhandler(404)
 def page_not_found(e):

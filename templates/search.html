@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Search Database</h1>
+
+    <div class="search-wrapper">
+        <form method="POST" action="/search" class="search-form">
+            <input type="text" name="query" placeholder="Ah... The things I know" value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    
+
+    <p style="color: green; font-weight: bold;">You can click on the text to bring you to the page.</p>
+
+    <div class="resultslist">
+        {% if results %}
+            {% set has_any_results = false %}
+            {% for table_name, items in results.items() %}
+                <h2>{{ table_name.capitalize() }}</h2>
+                {% if items %}
+                    {% set has_any_results = true %}
+                    <ul>
+                        {% for item in items %}
+                            {% if table_name == 'items' %}
+                                <li>
+                                    <strong>
+                                        <a href="{{ url_for('item_info', name=item[1]|lower) }}">
+                                            {{ item[1] }}
+                                        </a>
+                                    </strong>
+                                </li>
+                            {% elif table_name == 'survivors' %}
+                                <li>
+                                    <strong>
+                                        <a href="{{ url_for('survivor_info', name=item[1]|lower) }}">
+                                            {{ item[1] }}
+                                        </a>
+                                    </strong>
+                                </li>
+                            {% elif table_name == 'abilities' %}
+                                <li>
+                                    <strong>
+                                        <a href="{{ url_for('abilities_info', name=item[1]|lower) }}">
+                                            {{ item[1] }}
+                                        </a>
+                                    </strong>
+                                </li>
+                            {% elif table_name == 'maps' %}
+                                <li>
+                                    <strong>
+                                        <a href="{{ url_for('map_info', name=item[1]|lower) }}">
+                                            {{ item[1] }}
+                                        </a>
+                                    </strong>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-results" style="color: rgba(255, 0, 0, 0.582); font-weight: bold;">No results found in {{ table_name }}.</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
