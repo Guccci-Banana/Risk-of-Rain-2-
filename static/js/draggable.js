@@ -1,20 +1,66 @@
 document.addEventListener("DOMContentLoaded", () => {
     const draggables = Array.from(document.querySelectorAll('.draggable'));
     const resetBtn = document.getElementById('resetBtn');
+    const lineUpBtn = document.getElementById('lineUpBtn');
 
+    if (draggables.length > 0 && controls) {
+        controls.style.display = 'flex';
+    }
+
+    // Attach dragging once
+    function makeDraggable(el) {
+        el.style.position = 'absolute';
+        el.style.cursor = 'grab';
+
+        el.addEventListener('mousedown', e => {
+            e.preventDefault();
+            let startX = e.clientX;
+            let startY = e.clientY;
+
+            let initialLeft = parseInt(el.style.left) || 0;
+            let initialTop = parseInt(el.style.top) || 0;
+
+            el.style.zIndex = 1000;
+            el.style.cursor = 'grabbing';
+
+            const minLeft = 10;
+            const minTop = 130;
+            const maxLeft = window.innerWidth - el.offsetWidth - 10;
+            const maxTop = window.innerHeight - el.offsetHeight - 130;
+
+            function onMouseMove(e) {
+                let newLeft = initialLeft + (e.clientX - startX);
+                let newTop = initialTop + (e.clientY - startY);
+
+                newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+                newTop = Math.max(minTop, Math.min(newTop, maxTop));
+
+                el.style.left = newLeft + 'px';
+                el.style.top = newTop + 'px';
+            }
+
+            function onMouseUp() {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+                el.style.zIndex = 1;
+                el.style.cursor = 'grab';
+            }
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    }
+
+    // Shuffle positions
     function initializeDraggables() {
         const placedBoxes = [];
 
         draggables.forEach(el => {
-            el.style.transform = 'none';
-            el.style.position = 'absolute';
-
             const boxWidth = el.offsetWidth;
             const boxHeight = el.offsetHeight;
-            const horizontalMargin = window.innerWidth / 10; // 10% from left and right
-            const verticalMargin = window.innerHeight / 5;  // 20% from top and bottom
+            const horizontalMargin = window.innerWidth / 10;
+            const verticalMargin = window.innerHeight / 5;
 
-            // Generate random position without overlapping boxes
             let left, top, tries = 0;
             const maxTries = 100;
             let overlapping = true;
@@ -43,59 +89,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 right: left + boxWidth,
                 bottom: top + boxHeight
             });
-
-            // Makes the boxes Draggable
-            el.style.cursor = 'grab';
-            el.addEventListener('mousedown', e => {
-                e.preventDefault();
-                let startX = e.clientX;
-                let startY = e.clientY;
-
-                let initialLeft = parseInt(el.style.left);
-                let initialTop = parseInt(el.style.top);
-
-                el.style.zIndex = 1000;
-                el.style.cursor = 'grabbing';
-
-                // Set movement boundaries
-                const minLeft = 10;
-                const minTop = 130;
-                const maxLeft = window.innerWidth - el.offsetWidth - 10;
-                const maxTop = window.innerHeight - el.offsetHeight - 130;
-
-                function onMouseMove(e) {
-                    let newLeft = initialLeft + (e.clientX - startX);
-                    let newTop = initialTop + (e.clientY - startY);
-
-                    // Limit to boundaries
-                    newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
-                    newTop = Math.max(minTop, Math.min(newTop, maxTop));
-
-                    el.style.left = newLeft + 'px';
-                    el.style.top = newTop + 'px';
-                }
-                // stop on mouse release
-                function onMouseUp() {
-                    document.removeEventListener('mousemove', onMouseMove);
-                    document.removeEventListener('mouseup', onMouseUp);
-                    el.style.zIndex = 1;
-                    el.style.cursor = 'grab';
-                }
-
-                document.addEventListener('mousemove', onMouseMove);
-                document.addEventListener('mouseup', onMouseUp);
-            });
         });
     }
 
-    // Initialize on page load
-    initializeDraggables();
+    // Line up vertically
+    function lineUpDraggables() {
+        const spacing = 20;
+        const totalHeight = draggables.reduce((acc, el) => acc + el.offsetHeight, 0) + (draggables.length - 1) * spacing;
+        let currentTop = (window.innerHeight - totalHeight) / 2;
 
-    // Reset button functionality
-    if (resetBtn) {
-        resetBtn.addEventListener('click', initializeDraggables);
+        draggables.forEach(el => {
+            const left = (window.innerWidth - el.offsetWidth) / 2;
+            el.style.left = left + 'px';
+            el.style.top = currentTop + 'px';
+            currentTop += el.offsetHeight + spacing;
+        });
     }
 
-    // Reinitialize on window resize
-    window.addEventListener('resize', initializeDraggables);
+    // Add drag functionality to all boxes once
+    draggables.forEach(makeDraggable);
+
+    // Start with lined-up boxes
+    lineUpDraggables();
+
+    // Buttons
+    if (lineUpBtn) lineUpBtn.addEventListener('click', lineUpDraggables);
+    if (resetBtn) resetBtn.addEventListener('click', initializeDraggables);
+
+    // On resize → re-line up (not shuffle, unless you want both)
+    window.addEventListener('resize', lineUpDraggables);
 });

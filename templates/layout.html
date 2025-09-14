@@ -16,19 +16,33 @@
         <a href="{{ url_for('abilities') }}">Abilities</a>
         <a href="{{ url_for('maps') }}">Maps</a>
 
-        <button id="resetBtn" style="background-color: #ff00f0;
-        padding: 10px;
-        margin-left: 730px;
-        margin-top: 0px;
-        display: flex;
-        justify-self: right;
-        font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-        width: fit-content;
-        height: fit-content;
-        box-sizing: border-box;">
-            Shuffle Boxes
-        </button>
+        <div id="controls" style="display:none;">
+            <button id="resetBtn" style="background-color: #1e1b2e;
+            padding: 10px;
+            margin-left: 670px;
+            margin-top: 0px;
+            display: flex;
+            justify-self: right;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            width: fit-content;
+            height: fit-content;
+            box-sizing: border-box;">
+                Shuffle Boxes
+            </button>
 
+            <button id="lineUpBtn" style="background-color: #1e1b2e;
+            padding: 10px;
+            margin-left: 20px;
+            margin-top: 0px;
+            display: flex;
+            justify-self: right;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            width: fit-content;
+            height: fit-content;
+            box-sizing: border-box;">
+                Align Boxes
+            </button>
+        </div>
         <div class="user-tab">
             {% if session.get('username') %}
                 Logged in as <b>{{ session['username'] }}</b> | <a href="{{ url_for('logout') }}">Logout</a>

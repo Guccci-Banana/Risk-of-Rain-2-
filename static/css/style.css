@@ -116,7 +116,7 @@ h2 {
     gap: 5px;
     justify-content: center;
     font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-    width: 100vw;
+    width: fill;
     box-sizing: border-box;
     position: relative;
     left: 50%;

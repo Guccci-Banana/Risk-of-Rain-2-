@@ -1,7 +1,26 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>{{ survivor['name'] }}</h1>
-    <p>{{ survivor['stats'] }}</p>
-    <p>{{ survivor['abilities'] }}</p>
+
+    <div class="item-info-card draggable">
+        <h1>{{ survivor['name'] }}</h1>
+    </div>
+
+    <div class="item-info-card draggable">
+        <img src="{{ url_for('static', filename='images/survivors/' + survivor['media']) }}" alt="{{ survivor['name'] }}" style="max-width:300px; border-radius:12px; box-shadow:0 2px 12px #0006; margin-top: 20px;">
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>Health: {{ survivor['health'] }} ( + {{ survivor['health_scaling'] }} per level).</p>
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>Health Regeneration: {{ survivor['health_regeneration'] }} ( + {{ survivor['health_regeneration_scaling'] }} per level).</p>
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>Damage: {{ survivor['damage'] }} ( + {{ survivor['damage_scaling'] }} per level).</p>
+    </div>
+
+    
 {% endblock %}

@@ -1,8 +1,24 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>{{ ability['name'] }}</h1>
-    <p>Type: {{ ability['type'] }}</p>
-    <p>Cooldown: {{ ability['cooldown'] }}</p>
-    <p>Description: {{ ability['description'] }}</p>
+    <div class="item-info-card draggable">
+        <h1>{{ ability['name'] }}</h1>
+    </div>
+
+    <div class="item-info-card draggable">
+        <img src="{{ url_for('static', filename='images/abilities/' + ability['media']) }}" alt="{{ ability['name'] }}" style="max-width:300px; border-radius:12px; box-shadow:0 2px 12px #0006; margin-top: 20px;">
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>Ability Type: {{ ability['type'] }}</p>
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>Cooldown: {{ ability['cooldown'] }} seconds.</p>
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>{{ ability['description'] }}</p>
+    </div>
+
 {% endblock %}
