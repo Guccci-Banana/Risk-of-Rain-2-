@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.cursor = 'grabbing';
 
             const minLeft = 10;
-            const minTop = 130;
+            const minTop = 160;
             const maxLeft = window.innerWidth - el.offsetWidth - 10;
-            const maxTop = window.innerHeight - el.offsetHeight - 130;
+            const maxTop = window.innerHeight - el.offsetHeight - 50;
 
             function onMouseMove(e) {
                 let newLeft = initialLeft + (e.clientX - startX);
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function lineUpDraggables() {
         const spacing = 20;
         const totalHeight = draggables.reduce((acc, el) => acc + el.offsetHeight, 0) + (draggables.length - 1) * spacing;
-        let currentTop = (window.innerHeight - totalHeight) / 2;
+        let currentTop = (window.innerHeight - totalHeight) / 1.5;
 
         draggables.forEach(el => {
             const left = (window.innerWidth - el.offsetWidth) / 2;

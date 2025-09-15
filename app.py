@@ -7,51 +7,9 @@ app = Flask(__name__)
 app.secret_key = "ROR2" 
 DATABASE = "data.db"
 
-
 @app.route("/home")  
 def home():
     return render_template("home.html", title = "Home")
-
-'''
-@app.route("/pizza/<int:id>")
-def pizza(id):
-    return render_template("pizza.html", id=id)
-
-
-@app.route('/all_pizzas')
-def all_pizzas():
-    conn = sqlite3.connect('pizza.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Pizza')
-    pizzas = cur.fetchall()
-    conn.close()
-    return render_template('all_pizzas.html', pizzas = pizzas)
-
-
-@app.route("/pizza/<int:pizza_id>")
-def pizza_detail(pizza_id):
-    conn = sqlite3.connect('pizza.db')
-    cur = conn.cursor()
-    
-    cur.execute("SELECT * FROM Pizza WHERE id = ?", (pizza_id,))
-    pizza = cur.fetchone()
-    
-    cur.execute("""
-        SELECT Topping.name 
-        FROM Topping
-        JOIN Pizza_Topping ON Topping.id = Pizza_Topping.tid
-        WHERE Pizza_Topping.pid = ?
-    """, (pizza_id,))
-    toppings = [row[0] for row in cur.fetchall()]
-    
-    conn.close()
-    
-    if pizza:
-        return render_template("pizza_detail.html", pizza=pizza, toppings=toppings)
-    else:
-        return "Pizza not found", 404
-
-'''
 
 def get_db():
     if 'db' not in g:
@@ -114,11 +72,10 @@ def maps():
     return render_template('maps.html', maps=map_list)
 
 @app.route('/map/<name>')
-def map_info(name):
+def map_info(name, connect):
     db = get_db()
-    map = db.execute(
-        'SELECT * FROM map WHERE LOWER(name) = ?', (name,)
-    ).fetchone()
+    map = db.execute('SELECT * FROM map WHERE LOWER(name) = ?', (name,)).fetchone()
+    mapboss = db.execute('SELECT * FROM bossmap WHERE LOWER(id) = ?', (connect,)).fetchone()
     if map is None:
         return render_template('mapnotfound.html'), 404
     
@@ -134,7 +91,6 @@ def survivorstory(name):
         return render_template('survivornotfound.html'), 404
     return render_template('survivorstory.html', survivor=survivor)
 
-'''
 @app.route('/bosses')
 def bosses():
     db = get_db()
@@ -142,15 +98,13 @@ def bosses():
     return render_template('bosses.html', bosses=boss_list)
 
 @app.route('/boss/<name>')
-def boss_info(name):
+def boss_info(name,connect):
     db = get_db()
-    boss = db.execute(
-        'SELECT * FROM boss WHERE LOWER(name) = ?', (name,)
-    ).fetchone()
+    boss = db.execute('SELECT * FROM boss WHERE LOWER(name) = ?', (name,)).fetchone()
+    bossmap = db.execute('SELECT * FROM bossmap WHERE LOWER(id) = ?', (connect,)).fetchone()
     if boss is None:
         return "Boss not found", 404
     return render_template('boss_info.html', boss=boss)
-'''
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -224,6 +178,3 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug = True, port=5000)
-
-
-

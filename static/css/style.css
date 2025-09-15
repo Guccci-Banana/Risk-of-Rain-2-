@@ -213,17 +213,19 @@ button:hover {
     background: #181818;
     border-radius: 16px;
     max-width: 2000px;
-    margin: 40px auto 0 auto;
-    padding: 32px 24px 24px 24px;
+    margin: 10px auto 0 auto;
+    padding: 18px;
     box-shadow: 0 2px 16px #0008;
     text-align: center;
 }
 .item-info-card img {
     margin-bottom: 18px;
+    padding: 8px;
 }
 .item-info-card p {
     font-size: 1.1em;
-    margin: 12px 0;
+    margin: 6px;
+    padding: 6px;
 }
 
 .draggable {

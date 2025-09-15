@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="item-info-card draggable">
+        <h1>{{ boss['name'] }}</h1>
+    </div>
+
+    <div class="item-info-card draggable">
+        <img src="{{ url_for('static', filename='images/bosses/' ~ boss['media']) }}" alt="{{ boss['name'] }}">
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>{{ boss['health'] }}</p>
+    </div>
+
+    <div class="item-info-card draggable">
+        <p>Avaliable maps:</p>
+{% endblock %}
