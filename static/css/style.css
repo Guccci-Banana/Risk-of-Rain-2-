@@ -212,7 +212,7 @@ button:hover {
 .item-info-card {
     background: #181818;
     border-radius: 16px;
-    max-width: 500px;
+    max-width: 2000px;
     margin: 40px auto 0 auto;
     padding: 32px 24px 24px 24px;
     box-shadow: 0 2px 16px #0008;
@@ -243,40 +243,56 @@ a:focus {
     text-decoration: underline; /* underline on hover */
 }
 
-.resultslist {
-    display: flex;            /* Use flexbox for easy centering */
-    flex-direction: column;   /* Stack items vertically */
-    align-items: center;      /* Center horizontally */
-    margin-top: 20px;         /* Add some spacing from top */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
 
+.results-column {
+    background: #101010;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 
-/* Center the headings */
-.resultslist h2 {
-    text-align: center;
+.results-column h2 {
     margin-bottom: 10px;
+    color: #ffffff;
 }
 
-/* Style and center the ul */
-.resultslist ul {
-    list-style-type: none;   /* Remove bullets */
+.results-column ul {
+    list-style: none; /* Center the list items */
     padding: 0;
-    text-align: center;       /* Center text inside list items */
 }
 
-/* Optional: style individual li items */
-.resultslist li {
+.results-column li {
     margin: 5px 0;
 }
 
-/* Style the links */
-.resultslist a {
-    text-decoration: none;    /* Remove underline */
-    color: #007BFF;           /* Link color */
-    transition: color 0.3s;
+.results-column a {
+    text-decoration: none;
+    color: #007acc;
+    font-weight: bold;
 }
 
-.resultslist a:hover {
-    color: #FF4500;           /* Hover color */
+.results-column a:hover {
+    text-decoration: underline;
+}
+.no-results {
+    color: rgba(255, 0, 0, 0.65);
+    font-weight: bold;
 }
 
+
+.search-wrapper {
+    text-align: center;       /* Center the search bar */
+    margin-top: 20px;         /* Add some spacing from top */
+    margin-bottom: 20px;      /* Add some spacing from bottom */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;                /* Space between input and button */
+}

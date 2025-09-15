@@ -15,12 +15,15 @@
     </div>
 
     <div class="item-info-card draggable">
-        <p>Health Regeneration: {{ survivor['health_regeneration'] }} ( + {{ survivor['health_regeneration_scaling'] }} per level).</p>
+        <p>Health Regeneration: {{ survivor['health_regeneration'] }} ( + {{ survivor['health_regen_scaling'] }} per level).</p>
     </div>
 
     <div class="item-info-card draggable">
         <p>Damage: {{ survivor['damage'] }} ( + {{ survivor['damage_scaling'] }} per level).</p>
     </div>
 
-    
+    <div class="item-info-card draggable">
+        <a href="{{ url_for('survivorstory', name=survivor['name'].lower()) }}">View Story</a>
+    </div>
+
 {% endblock %}

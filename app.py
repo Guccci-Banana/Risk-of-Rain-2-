@@ -124,6 +124,16 @@ def map_info(name):
     
     return render_template('map_info.html', map=map)
 
+@app.route('/survivorstory/<name>')
+def survivorstory(name):
+    db = get_db()
+    survivor = db.execute(
+        'SELECT * FROM survivor WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
+    if survivor is None:
+        return render_template('survivornotfound.html'), 404
+    return render_template('survivorstory.html', survivor=survivor)
+
 '''
 @app.route('/bosses')
 def bosses():
@@ -196,7 +206,7 @@ def search():
         query = request.form['query'].lower()
         item_results = db.execute('SELECT * FROM Item WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
         survivor_results = db.execute('SELECT * FROM Survivor WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
-        ability_results = db.execute('SELECT * FROM Abilities WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
+        ability_results = db.execute('SELECT * FROM Abilities WHERE LOWER(name) LIKE ? OR LOWER(traits) LIKE ?', ('%' + query + '%', '%' + query + '%')).fetchall()
         map_results = db.execute('SELECT * FROM Map WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
         results = {
             'items': item_results,
