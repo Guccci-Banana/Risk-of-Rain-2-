@@ -2,18 +2,18 @@
 
 {% block content %}
     <div class="container">
-            <h2 class="word">Register</h2>
+        <h2 class="word">Register</h2>
 
-            <form action="{{ url_for('register') }}" method="post">
-                <div class = "invalid">{{ msg }}</div>
+        <form action="{{ url_for('register') }}" method="post">
+            <div class = "invalid">{{ msg }}</div>
 
-                <input class="textbox" type="text" name="username" placeholder="Enter Username" required minlength="4" maxlength="20">
-                <input class="textbox" type="password" name="password" placeholder="Enter Password" required minlength="6" maxlength="24">
-                <input class="textbox" type="email" name="email" placeholder="Enter Email (Optional)">
+            <input class="textbox" type="text" name="username" placeholder="Enter Username" required minlength="4" maxlength="20">
+            <input class="textbox" type="password" name="password" placeholder="Enter Password" required minlength="6" maxlength="24">
+            <input class="textbox" type="email" name="email" placeholder="Enter Email (Optional)">
 
-                <button class="btn" type="submit">Register</button>
-            </form>
+            <button class="btn" type="submit">Register</button>
+        </form>
 
-            <p class="bottom">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
-        </div>
+        <p class="bottom">Already have an account? <a href="{{ url_for('login') }}" style="color: green;">Login here</a></p>
+    </div>
 {% endblock %}

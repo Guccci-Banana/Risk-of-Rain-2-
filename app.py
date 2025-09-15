@@ -173,7 +173,6 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -194,7 +193,6 @@ def register():
             db.commit()
             msg = "Registration successful! Please log in."
             return redirect(url_for('login'))
-        
     return render_template('register.html', msg=msg)
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -216,7 +214,6 @@ def search():
         }
     return render_template('search.html', results=results, query=query)
 
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -224,7 +221,6 @@ def page_not_found(e):
 @app.route("/")
 def index():
     return redirect(url_for("home"))
-
 
 if __name__ == "__main__":
     app.run(debug = True, port=5000)
