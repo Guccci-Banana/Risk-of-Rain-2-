@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Bosses</h1>
+    <div class="pageheader">
+        <h1>Bosses</h1>
+    </div>
     <div class="card-grid">
         {% for boss in bosses %}
             <a href="{{ url_for('boss_info', name=boss['name'].lower()) }}" class="card-link">

@@ -72,14 +72,13 @@ def maps():
     return render_template('maps.html', maps=map_list)
 
 @app.route('/map/<name>')
-def map_info(name, connect):
+def map_info(name):
     db = get_db()
     map = db.execute('SELECT * FROM map WHERE LOWER(name) = ?', (name,)).fetchone()
-    mapboss = db.execute('SELECT * FROM bossmap WHERE LOWER(id) = ?', (connect,)).fetchone()
     if map is None:
         return render_template('mapnotfound.html'), 404
-    
-    return render_template('map_info.html', map=map)
+    bosses = db.execute('SELECT b.name FROM Boss b JOIN BossMap bm ON b.id = bm.boss_id JOIN Map m ON bm.map_id = m.id WHERE LOWER(m.name) = ?', (name,)).fetchall()
+    return render_template('map_info.html', map=map, bosses=bosses)
 
 @app.route('/survivorstory/<name>')
 def survivorstory(name):
@@ -98,14 +97,14 @@ def bosses():
     return render_template('bosses.html', bosses=boss_list)
 
 @app.route('/boss/<name>')
-def boss_info(name,connect):
+def boss_info(name):
     db = get_db()
     boss = db.execute('SELECT * FROM boss WHERE LOWER(name) = ?', (name,)).fetchone()
-    bossmap = db.execute('SELECT * FROM bossmap WHERE LOWER(id) = ?', (connect,)).fetchone()
     if boss is None:
         return "Boss not found", 404
-    return render_template('boss_info.html', boss=boss)
-    
+    maps = db.execute('SELECT m.name FROM Map m JOIN BossMap bm ON m.id = bm.map_id JOIN Boss b ON bm.boss_id = b.id WHERE LOWER(b.name) = ?', (name,)).fetchall()
+    return render_template('boss_info.html', boss=boss, maps=maps)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     db = get_db()

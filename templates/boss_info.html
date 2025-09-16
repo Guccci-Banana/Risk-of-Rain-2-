@@ -10,9 +10,21 @@
     </div>
 
     <div class="item-info-card draggable">
-        <p>{{ boss['health'] }}</p>
+        <p>Boss health: {{ boss['health'] }} ( + {{ boss['health_scaling'] }} per level)</p>
     </div>
 
     <div class="item-info-card draggable">
-        <p>Avaliable maps:</p>
+        <p>Available maps:</p>
+        <ul>
+            {% for map in maps %}
+            <li>
+                <a href="{{ url_for('map_info', name=map['name'].lower()) }}">
+                    {{ map['name'] }}
+                </a>
+            </li>
+            {% else %}
+                <li>No maps available</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

@@ -15,6 +15,17 @@
     </div>
 
     <div class="item-info-card draggable">
-        <p>Avaliable Bosses: </p>
+        <p>Available bosses:</p>
+        <ul>
+            {% for boss in bosses %}
+                <li>
+                    <a href="{{ url_for('boss_info', name=boss['name'].lower()) }}">
+                        {{ boss['name'] }}
+                    </a>
+                </li>
+            {% else %}
+                <li>No bosses available</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

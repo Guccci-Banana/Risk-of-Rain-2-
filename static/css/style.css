@@ -19,9 +19,28 @@ header {
     padding: 10px 0;
 }
 
-.home h1 {
-    margin: 0;
-    font-size: 3000%;
+.home {
+    text-align: center;
+    font-size: 24px;
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 300px;
+    padding: 10px 0;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    letter-spacing: 2px;
+}
+
+.homenav {
+    text-align: center;
+    font-size: 38px;
+    color: darkgreen;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 20px;
+    padding: 10px 0;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    letter-spacing: 1px;
 }
 
 h1 {
@@ -175,7 +194,7 @@ button {
     width: 95%;
     padding: 12px;
     background-color: #236B8E;
-    color: white;
+    color: #F5F5F5;
     border: none;
     border-radius: 5px;
     font-weight: bold;
@@ -200,7 +219,7 @@ button:hover {
     display: inline-block;                 
     padding: 10px 20px;
     background-color: #236B8E;              
-    color: white;                        
+    color: #F5F5F5;                        
     border-radius: 5px; 
     font-weight: bold;
     font-style: oblique;        
@@ -235,7 +254,7 @@ button:hover {
 }
 
 a {
-    color: white;       /* unvisited link color */
+    color: #F5F5F5;       /* unvisited link color */
     text-decoration: none; /* remove underline */
 }
 
