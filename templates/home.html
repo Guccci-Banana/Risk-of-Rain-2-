@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
 
-
-
 {% block content %}
     <div class="home">
         <p>Welcome to the Risk of Rain 2 database! Login or create an account to get started. Or just explore all the available stuff out there! :3</p>
+        {% if session.get("loggedin", "no") == "no" %}
+            <p>You can login or create an account to search for items.</p>
+        {% endif %}
         <div class ="homenav">
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('characters') }}">Survivors</a>
@@ -12,7 +13,9 @@
             <a href="{{ url_for('abilities') }}">Abilities</a>
             <a href="{{ url_for('maps') }}">Maps</a>
             <a href="{{ url_for('bosses') }}">Bosses</a>
-            <a href="{{ url_for('search') }}">Search</a>
+            {% if session.get("loggedin") == "yes" %}
+                <a href="{{ url_for('search') }}">Search</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

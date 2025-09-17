@@ -16,8 +16,9 @@
         <a href="{{ url_for('abilities') }}">Abilities</a>
         <a href="{{ url_for('maps') }}">Maps</a>
         <a href="{{ url_for('bosses') }}">Bosses</a>
-        <a href="{{ url_for('search') }}">Search</a>
-
+        {% if session.get("loggedin") == "yes" %}
+            <a href="{{ url_for('search') }}">Search</a>
+        {% endif %}
 
         <div id="controls" style="display:none;">
             <button id="resetBtn" style="background-color: #1e1b2e;
