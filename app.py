@@ -9,7 +9,8 @@ DATABASE = "data.db"
 
 @app.route("/home")  
 def home():
-    return render_template("home.html", title = "Home")
+    loggedin = session.get('loggedin', 'no')
+    return render_template("home.html", title = "Home", loggedin=loggedin)
 
 def get_db():
     if 'db' not in g:
@@ -117,14 +118,15 @@ def login():
             session['user_id'] = user['id']
             session['username'] = user['username']
             msg = "Login successful!"
+            session["loggedin"] = "yes"
             return redirect(url_for('home'))
         else:
             msg = "Invalid username or password"
-
     return render_template('login.html', msg=msg)
 
 @app.route('/logout')
 def logout():
+    session["loggedin"] = "no"
     session.clear()
     return redirect(url_for('login'))
 
