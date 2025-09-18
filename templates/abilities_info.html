@@ -1,11 +1,12 @@
-{% extends "layout.html" %} <!-- extends the general layout scheme -->
+{% extends "layout.html" %} <!-- Extends the general layout scheme -->
 
-<!-- Draggable ability page -->
+<!-- Individual ability page -->
 {% block content %}
-    <div class="item-info-card draggable">
+    <div class="item-info-card draggable"> <!-- css and js for the draggable card -->
         <h1>{{ ability['name'] }}</h1>
     </div>
 
+     <!-- Route to corresponding image -->
     <div class="item-info-card draggable">
         <img src="{{ url_for('static', filename='images/abilities/' + ability['media']) }}" alt="{{ ability['name'] }}">
     </div>

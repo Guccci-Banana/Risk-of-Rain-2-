@@ -1,12 +1,13 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
+<!-- Main home page -->
 {% block content %}
     <div class="home">
         <p>Welcome to the Risk of Rain 2 database! Login or create an account to get started. Or just explore all the available stuff out there! :3</p>
-        {% if session.get("loggedin", "no") == "no" %}
+        {% if session.get("loggedin", "no") == "no" %} <!-- Check login status and respond accordingly -->
             <p>You can login or create an account to search for items.</p>
         {% endif %}
-        <div class ="homenav">
+        <div class ="homenav"> <!-- Different style navbar -->
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('characters') }}">Survivors</a>
             <a href="{{ url_for('items') }}">Items</a>

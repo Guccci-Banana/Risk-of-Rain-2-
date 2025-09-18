@@ -1,10 +1,11 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
+<!-- Main boss page -->
 {% block content %}
     <div class="pageheader">
         <h1>Bosses</h1>
     </div>
-    <div class="card-grid">
+    <div class="card-grid"> <!-- Line up bosses in cards and grid format-->
         {% for boss in bosses %}
             <a href="{{ url_for('boss_info', name=boss['name'].lower()) }}" class="card-link">
                 <div class="card">

@@ -1,11 +1,12 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
-<!-- Boss -->
+<!-- Main boss page -->
 {% block content %}
     <div class="item-info-card draggable">
         <h1>{{ boss['name'] }}</h1>
     </div>
 
+    <!-- Link to image -->
     <div class="item-info-card draggable">
         <img src="{{ url_for('static', filename='images/bosses/' ~ boss['media']) }}" alt="{{ boss['name'] }}">
     </div>
@@ -14,6 +15,7 @@
         <p>Boss health: {{ boss['health'] }} ( + {{ boss['health_scaling'] }} per level)</p>
     </div>
 
+    <!-- Loop for getting all avaliable maps corresponding to the current boss -->
     <div class="item-info-card draggable">
         <p>Available maps:</p>
         <ul>

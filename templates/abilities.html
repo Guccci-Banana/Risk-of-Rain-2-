@@ -1,11 +1,12 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
-<!-- Home ability page -->
+<!-- Main ability page -->
 {% block content %}
     <div class="pageheader">
         <h1>Abilities List</h1>
     </div>
-    <div class="card-grid">
+    <!-- Repeat for each ability and list them out-->
+    <div class="card-grid"> <!-- Grid style to keep cards inline -->
         {% for ability in abilities %}
             <a href="{{ url_for('abilities_info', name=ability['name'].lower()) }}" class="card-link">
                 <div class="card">

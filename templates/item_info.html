@@ -1,6 +1,6 @@
-{% extends "layout.html" %} <!-- extends the general layout scheme -->
+{% extends "layout.html" %} <!-- Extends the general layout scheme -->
 
-
+<!-- Individual item info page -->
 {% block content %}
     <div class="item-info-card draggable">
         <h1>{{ item['name'] }}</h1>
@@ -10,6 +10,7 @@
         <img src="{{ url_for('static', filename='images/items/' + item['media']) }}" alt="{{ item['name'] }}">
     </div>
 
+    <!-- Check if the item belong to a DLC-->
     <div class="item-info-card draggable">
         <p>
             {% if item['dlc'] != "No" %}
@@ -21,6 +22,7 @@
         </p>
     </div>
 
+    <!-- Changes the color of the text depending of the rarity of the item s-->
     <div class="item-info-card draggable">
         <p>
             Rarity:

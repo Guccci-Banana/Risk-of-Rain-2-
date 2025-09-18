@@ -21,32 +21,15 @@
         {% endif %}
 
         <div id="controls" style="display:none;">
-            <button id="resetBtn" style="background-color: #1e1b2e;
-            padding: 10px;
-            margin-left: 560px;
-            margin-top: 0px;
-            display: flex;
-            justify-self: right;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-            width: fit-content;
-            height: fit-content;
-            box-sizing: border-box;">
-                Shuffle Boxes
+            <button id="resetBtn" class="shufflebutton">
+                Shuffle Button
             </button>
 
-            <button id="lineUpBtn" style="background-color: #1e1b2e;
-            padding: 10px;
-            margin-left: 20px;
-            margin-top: 0px;
-            display: flex;
-            justify-self: right;
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-            width: fit-content;
-            height: fit-content;
-            box-sizing: border-box;">
-                Align Boxes
+            <button id="lineUpBtn" class="lineupbutton">
+                Align Button
             </button>
         </div>
+        
         <div class="user-tab">
             {% if session.get('username') %}
                 Logged in as <b>{{ session['username'] }}</b> | <a href="{{ url_for('logout') }}">Logout</a>

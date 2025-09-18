@@ -1,10 +1,12 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
+<!-- Main survivor list page -->
 {% block content %}
     <div class="pageheader">
         <h1>Survivor List</h1>
     </div>
     <div class="card-grid">
+        <!-- Loop for all survivors -->
         {% for survivor in survivors %}
             <a href="{{ url_for('survivor_info', name=survivor['name'].lower()) }}" class="card-link">
                 <div class="card">

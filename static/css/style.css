@@ -317,3 +317,29 @@ a:focus {
     align-items: center;
     gap: 10px;                /* Space between input and button */
 }
+
+.shufflebutton{
+    background-color: #1e1b2e;
+    padding: 10px;
+    margin-left: 560px;
+    margin-top: 0px;
+    display: flex;
+    justify-self: right;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    width: fit-content;
+    height: fit-content;
+    box-sizing: border-box;
+}
+
+.lineupbutton{
+    background-color: #1e1b2e;
+    padding: 10px;
+    margin-left: 20px;
+    margin-top: 0px;
+    display: flex;
+    justify-self: right;
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    width: fit-content;
+    height: fit-content;
+    box-sizing: border-box;
+}

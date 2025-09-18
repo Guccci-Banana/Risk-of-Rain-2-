@@ -1,3 +1,4 @@
+# Importing necessary libraries
 from flask import (
     Flask, render_template, g, redirect, url_for, request, session
 )
@@ -5,17 +6,20 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
 
+# Initialize flask and connecting to database
 app = Flask(__name__)
 app.secret_key = "ROR2"
 DATABASE = "data.db"
 
 
+# Home route
 @app.route("/home")
 def home():
     loggedin = session.get('loggedin', 'no')
     return render_template("home.html", title="Home", loggedin=loggedin)
 
 
+# Database connection
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(DATABASE)
@@ -23,6 +27,7 @@ def get_db():
     return g.db
 
 
+# Items page route
 @app.route('/items')
 def items():
     db = get_db()
@@ -32,6 +37,7 @@ def items():
     return render_template('items.html', items=item_list)
 
 
+# Characters page route
 @app.route('/survivor')
 def characters():
     db = get_db()
@@ -39,6 +45,7 @@ def characters():
     return render_template('survivor.html', survivors=survivor_list)
 
 
+# Indiviual survivor page route
 @app.route('/survivor/<name>')
 def survivor_info(name):
     db = get_db()
@@ -50,6 +57,7 @@ def survivor_info(name):
     return render_template('survivor_info.html', survivor=survivor)
 
 
+# Individual item page route
 @app.route('/item/<name>')
 def item_info(name):
     db = get_db()
@@ -61,6 +69,7 @@ def item_info(name):
     return render_template('item_info.html', item=item)
 
 
+# Abilities page route
 @app.route("/abilities")
 def abilities():
     db = get_db()
@@ -70,6 +79,7 @@ def abilities():
     return render_template('abilities.html', abilities=ability_list)
 
 
+# Individual ability page route
 @app.route('/abilities/<name>')
 def abilities_info(name):
     db = get_db()
@@ -81,6 +91,7 @@ def abilities_info(name):
     return render_template('abilities_info.html', ability=ability)
 
 
+# Maps page route
 @app.route('/maps')
 def maps():
     db = get_db()
@@ -90,6 +101,7 @@ def maps():
     return render_template('maps.html', maps=map_list)
 
 
+# Individual map page route
 @app.route('/map/<name>')
 def map_info(name):
     db = get_db()
@@ -109,6 +121,7 @@ def map_info(name):
     return render_template('map_info.html', map=map, bosses=bosses)
 
 
+# Individual survivor Stories page route
 @app.route('/survivorstory/<name>')
 def survivorstory(name):
     db = get_db()
@@ -120,6 +133,7 @@ def survivorstory(name):
     return render_template('survivorstory.html', survivor=survivor)
 
 
+# Bosses page route
 @app.route('/bosses')
 def bosses():
     db = get_db()
@@ -127,6 +141,7 @@ def bosses():
     return render_template('bosses.html', bosses=boss_list)
 
 
+# Individual boss page route
 @app.route('/boss/<name>')
 def boss_info(name):
     db = get_db()
@@ -145,6 +160,7 @@ def boss_info(name):
     return render_template('boss_info.html', boss=boss, maps=maps)
 
 
+# User login code and route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     db = get_db()
@@ -167,6 +183,7 @@ def login():
     return render_template('login.html', msg=msg)
 
 
+# User logout route
 @app.route('/logout')
 def logout():
     session["loggedin"] = "no"
@@ -174,6 +191,7 @@ def logout():
     return redirect(url_for('login'))
 
 
+# User registration code and route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     db = get_db()
@@ -203,6 +221,7 @@ def register():
     return render_template('register.html', msg=msg)
 
 
+# Search function route
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     db = get_db()
@@ -244,15 +263,18 @@ def search():
     return render_template('search.html', results=results, query=query)
 
 
+# Page not founderror handling route
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
 
 
+# Default route
 @app.route("/")
 def index():
     return redirect(url_for("home"))
 
 
+# Running the app
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

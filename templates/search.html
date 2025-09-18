@@ -1,8 +1,10 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
+<!-- Searching page -->
 {% block content %}
     <h1>Search Database</h1>
 
+    <!-- Search textbox and button style -->
     <div class="search-wrapper">
         <form method="POST" action="/search" class="search-form">
             <input type="text" name="query" placeholder="Ah... The things I know" value="{{ query }}">
@@ -12,6 +14,7 @@
 
     <p style="color: green; font-weight: bold;">You can click on the text to bring you to the page.</p>
 
+    <!-- Lists the results out according to genre -->
     <div class="results-grid">
         {% if results %}
             {% set has_any_results = false %}
@@ -21,6 +24,7 @@
                     {% if items %}
                         {% set has_any_results = true %}
                         <ul>
+                            <!-- Loop for each item -->
                             {% for item in items %}
                                 {% if table_name == 'items' %}
                                     <li>
@@ -50,6 +54,7 @@
                             {% endfor %}
                             <p>Total results in {{ table_name }}: {{ items|length }}</p>
                         </ul>
+                    <!-- Error handler -->
                     {% else %}
                         <p class="no-results">No results found in {{ table_name }}.</p>
                     {% endif %}

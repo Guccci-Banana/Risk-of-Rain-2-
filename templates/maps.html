@@ -1,10 +1,12 @@
 {% extends "layout.html" %} <!-- extends the general layout scheme -->
 
+<!-- Main map page -->
 {% block content %}
     <div class="pageheader">    
         <h1>Maps</h1>
     </div>
     <div class="card-grid">
+        <!-- Repeat for each map and list them out-->
         {% for map in maps %}
             <a href="{{ url_for('map_info', name=map['name'].lower()) }}" class="card-link">
                 <div class="card">
