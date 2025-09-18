@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} <!-- extends the general layout scheme -->
 
 
 {% block content %}
@@ -7,7 +7,7 @@
     </div>
 
     <div class="item-info-card draggable">
-        <img src="{{ url_for('static', filename='images/items/' + item['media']) }}" alt="{{ item['name'] }}" style="max-width:300px; border-radius:12px; box-shadow:0 2px 12px #0006; margin-top: 20px;">
+        <img src="{{ url_for('static', filename='images/items/' + item['media']) }}" alt="{{ item['name'] }}">
     </div>
 
     <div class="item-info-card draggable">
