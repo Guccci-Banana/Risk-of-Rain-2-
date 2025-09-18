@@ -1,34 +1,43 @@
-from flask import Flask, render_template, g, redirect, url_for, request, session, flash
+from flask import (
+    Flask, render_template, g, redirect, url_for, request, session
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
 
 app = Flask(__name__)
-app.secret_key = "ROR2" 
+app.secret_key = "ROR2"
 DATABASE = "data.db"
 
-@app.route("/home")  
+
+@app.route("/home")
 def home():
     loggedin = session.get('loggedin', 'no')
-    return render_template("home.html", title = "Home", loggedin=loggedin)
+    return render_template("home.html", title="Home", loggedin=loggedin)
+
 
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(DATABASE)
-        g.db.row_factory = sqlite3.Row 
+        g.db.row_factory = sqlite3.Row
     return g.db
+
 
 @app.route('/items')
 def items():
     db = get_db()
-    item_list = db.execute('SELECT name, description, media, stack_type, dlc, rarity FROM Item').fetchall()
+    item_list = db.execute(
+        'SELECT name, description, media, stack_type, dlc, rarity FROM Item'
+    ).fetchall()
     return render_template('items.html', items=item_list)
+
 
 @app.route('/survivor')
 def characters():
     db = get_db()
     survivor_list = db.execute('SELECT * FROM Survivor').fetchall()
     return render_template('survivor.html', survivors=survivor_list)
+
 
 @app.route('/survivor/<name>')
 def survivor_info(name):
@@ -40,6 +49,7 @@ def survivor_info(name):
         return render_template('survivornotfound.html'), 404
     return render_template('survivor_info.html', survivor=survivor)
 
+
 @app.route('/item/<name>')
 def item_info(name):
     db = get_db()
@@ -50,11 +60,15 @@ def item_info(name):
         return render_template('itemnotfound.html'), 404
     return render_template('item_info.html', item=item)
 
+
 @app.route("/abilities")
 def abilities():
     db = get_db()
-    ability_list = db.execute('SELECT name, type, cooldown, media, description FROM Abilities').fetchall()
+    ability_list = db.execute(
+        'SELECT name, type, cooldown, media, description FROM Abilities'
+    ).fetchall()
     return render_template('abilities.html', abilities=ability_list)
+
 
 @app.route('/abilities/<name>')
 def abilities_info(name):
@@ -66,20 +80,34 @@ def abilities_info(name):
         return render_template('abilitiesnotfound.html'), 404
     return render_template('abilities_info.html', ability=ability)
 
+
 @app.route('/maps')
 def maps():
     db = get_db()
-    map_list = db.execute('SELECT name, description, media, stage FROM Map').fetchall()
+    map_list = db.execute(
+        'SELECT name, description, media, stage FROM Map'
+    ).fetchall()
     return render_template('maps.html', maps=map_list)
+
 
 @app.route('/map/<name>')
 def map_info(name):
     db = get_db()
-    map = db.execute('SELECT * FROM map WHERE LOWER(name) = ?', (name,)).fetchone()
+    map = db.execute(
+        'SELECT * FROM map WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
     if map is None:
         return render_template('mapnotfound.html'), 404
-    bosses = db.execute('SELECT b.name FROM Boss b JOIN BossMap bm ON b.id = bm.boss_id JOIN Map m ON bm.map_id = m.id WHERE LOWER(m.name) = ?', (name,)).fetchall()
+    bosses = db.execute(
+        'SELECT b.name '
+        'FROM Boss b '
+        'JOIN BossMap bm ON b.id = bm.boss_id '
+        'JOIN Map m ON bm.map_id = m.id '
+        'WHERE LOWER(m.name) = ?',
+        (name,)
+    ).fetchall()
     return render_template('map_info.html', map=map, bosses=bosses)
+
 
 @app.route('/survivorstory/<name>')
 def survivorstory(name):
@@ -91,20 +119,31 @@ def survivorstory(name):
         return render_template('survivornotfound.html'), 404
     return render_template('survivorstory.html', survivor=survivor)
 
+
 @app.route('/bosses')
 def bosses():
     db = get_db()
     boss_list = db.execute('SELECT name, health, media FROM Boss').fetchall()
     return render_template('bosses.html', bosses=boss_list)
 
+
 @app.route('/boss/<name>')
 def boss_info(name):
     db = get_db()
-    boss = db.execute('SELECT * FROM boss WHERE LOWER(name) = ?', (name,)).fetchone()
+    boss = db.execute(
+        'SELECT * FROM boss WHERE LOWER(name) = ?', (name,)
+    ).fetchone()
     if boss is None:
         return "Boss not found", 404
-    maps = db.execute('SELECT m.name FROM Map m JOIN BossMap bm ON m.id = bm.map_id JOIN Boss b ON bm.boss_id = b.id WHERE LOWER(b.name) = ?', (name,)).fetchall()
+    maps = db.execute(
+        'SELECT m.name FROM Map m '
+        'JOIN BossMap bm ON m.id = bm.map_id '
+        'JOIN Boss b ON bm.boss_id = b.id '
+        'WHERE LOWER(b.name) = ?',
+        (name,)
+    ).fetchall()
     return render_template('boss_info.html', boss=boss, maps=maps)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -113,7 +152,10 @@ def login():
     if request.method == 'POST':
         login_value = request.form['username']
         password = request.form['password']
-        user = db.execute('SELECT * FROM User WHERE username = ? OR email = ?', (login_value, login_value)).fetchone()
+        user = db.execute(
+            'SELECT * FROM User WHERE username = ? OR email = ?',
+            (login_value, login_value)
+        ).fetchone()
         if user and check_password_hash(user['password'], password):
             session['user_id'] = user['id']
             session['username'] = user['username']
@@ -124,11 +166,13 @@ def login():
             msg = "Invalid username or password"
     return render_template('login.html', msg=msg)
 
+
 @app.route('/logout')
 def logout():
     session["loggedin"] = "no"
     session.clear()
     return redirect(url_for('login'))
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -138,29 +182,59 @@ def register():
         username = request.form['username']
         password = request.form['password']
         email = request.form.get('email', '')
-        existing = db.execute('SELECT * FROM User WHERE username = ?', (username,)).fetchone()
-        existing = db.execute('SELECT * FROM User WHERE email = ?', (email,)).fetchone()
+        existing = db.execute(
+            'SELECT * FROM User WHERE username = ?', (username,)
+        ).fetchone()
+        existing = db.execute(
+            'SELECT * FROM User WHERE email = ?', (email,)
+        ).fetchone()
         if existing:
             msg = "Username/Email already exists."
         else:
             hashed = generate_password_hash(password)
-            db.execute('INSERT INTO User (username, email, password) VALUES (?, ?, ?)', (username, email, hashed))
+            db.execute(
+                ('INSERT INTO User (username, email, password)'
+                 'VALUES (?, ?, ?)'),
+                (username, email, hashed)
+            )
             db.commit()
             msg = "Registration successful! Please log in."
             return redirect(url_for('login'))
     return render_template('register.html', msg=msg)
 
+
 @app.route('/search', methods=['GET', 'POST'])
-def search():  
+def search():
     db = get_db()
     results = []
     query = ""
     if request.method == 'POST':
         query = request.form['query'].lower()
-        item_results = db.execute('SELECT * FROM Item WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
-        survivor_results = db.execute('SELECT * FROM Survivor WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
-        ability_results = db.execute('SELECT * FROM Abilities WHERE LOWER(name) LIKE ? OR LOWER(traits) LIKE ?', ('%' + query + '%', '%' + query + '%')).fetchall()
-        map_results = db.execute('SELECT * FROM Map WHERE LOWER(name) LIKE ?', ('%' + query + '%',)).fetchall()
+        item_results = db.execute(
+            'SELECT * FROM Item '
+            'WHERE LOWER(name) LIKE ?', (
+                '%' + query + '%',
+            )
+        ).fetchall()
+        survivor_results = db.execute(
+            'SELECT * FROM Survivor '
+            'WHERE LOWER(name) LIKE ?', (
+                '%' + query + '%',
+                )
+            ).fetchall()
+        ability_results = db.execute(
+            'SELECT * FROM Abilities '
+            'WHERE LOWER(name) LIKE ?'
+            'OR LOWER(traits) LIKE ?', (
+                '%' + query + '%', '%' + query + '%'
+                )
+            ).fetchall()
+        map_results = db.execute(
+            'SELECT * FROM Map '
+            'WHERE LOWER(name) LIKE ?', (
+                '%' + query + '%',
+                )
+            ).fetchall()
         results = {
             'items': item_results,
             'survivors': survivor_results,
@@ -169,13 +243,16 @@ def search():
         }
     return render_template('search.html', results=results, query=query)
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 @app.route("/")
 def index():
     return redirect(url_for("home"))
 
+
 if __name__ == "__main__":
-    app.run(debug = True, port=5000)
+    app.run(debug=True, port=5000)
