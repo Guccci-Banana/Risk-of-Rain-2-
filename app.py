@@ -149,7 +149,7 @@ def boss_info(name):
         'SELECT * FROM boss WHERE LOWER(name) = ?', (name,)
     ).fetchone()
     if boss is None:
-        return "Boss not found", 404
+        return render_template('bossnotfound.html'), 404
     maps = db.execute(
         'SELECT m.name FROM Map m '
         'JOIN BossMap bm ON m.id = bm.map_id '

@@ -7,8 +7,8 @@
         {% if session.get("loggedin", "no") == "no" %} <!-- Check login status and respond accordingly -->
             <p>You can login or create an account to search for items.</p>
         {% endif %}
+        <p style="color: greenyellow">Click Below on the Links to Explore:</p>
         <div class ="homenav"> <!-- Different style navbar -->
-            <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('characters') }}">Survivors</a>
             <a href="{{ url_for('items') }}">Items</a>
             <a href="{{ url_for('abilities') }}">Abilities</a>
