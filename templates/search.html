@@ -50,6 +50,12 @@
                                             {{ item[1] }}
                                         </a>
                                     </li>
+                                {% elif table_name == 'boss' %}
+                                    <li>
+                                        <a href="{{ url_for('boss_info', name=item[1]|lower) }}">
+                                            {{ item[1] }}
+                                        </a>
+                                    </li>
                                 {% endif %}
                             {% endfor %}
                             <p>Total results in {{ table_name }}: {{ items|length }}</p>

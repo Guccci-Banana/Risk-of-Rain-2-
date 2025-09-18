@@ -12,6 +12,12 @@ app.secret_key = "ROR2"
 DATABASE = "data.db"
 
 
+# Default route
+@app.route("/")
+def index():
+    return redirect(url_for("home"))
+
+
 # Home route
 @app.route("/home")
 def home():
@@ -254,11 +260,18 @@ def search():
                 '%' + query + '%',
                 )
             ).fetchall()
+        boss_results = db.execute(
+            'SELECT * FROM Boss '
+            'WHERE LOWER(name) LIKE ?', (
+                '%' + query + '%',
+                )
+            ).fetchall()
         results = {
             'items': item_results,
             'survivors': survivor_results,
             'abilities': ability_results,
-            'maps': map_results
+            'maps': map_results,
+            'boss': boss_results
         }
     return render_template('search.html', results=results, query=query)
 
@@ -267,12 +280,6 @@ def search():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
-
-# Default route
-@app.route("/")
-def index():
-    return redirect(url_for("home"))
 
 
 # Running the app
